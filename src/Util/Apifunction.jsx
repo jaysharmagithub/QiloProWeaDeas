@@ -63,7 +63,7 @@ export async function getRelativeHumidityValues(
 export async function getLatiAndLongi(city) {
   try {
     const response = axios.get(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=b77e8cb5ba0afdb41c9150d8b56303c9`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=b77e8cb5ba0afdb41c9150d8b56303c9`
     );
     return response;
   } catch (error) {
