@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+:root {
+    --primary-color: #5c6bc0; /* Primary color */
+    --secondary-color: #ffcc80; /* Secondary color */
+    --background-color: #f5f5f5; /* Background color */
+    --text-color: #212121; /* Text color */
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+.card-shadow {
+    box-shadow:  8px 4px 0 0 #0000662b;
+    transition: 0.3s;
+}
+
+.card-shadow:hover {
+    box-shadow: 0 4px 8px 4px   rgba(0, 0, 0, 0.2);
+}
+
+  .button-hover-effect:hover {
+      background-color: var(--secondary-color);
+      color: var(--primary-color);
+  }
