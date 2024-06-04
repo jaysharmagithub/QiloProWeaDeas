@@ -8,7 +8,7 @@ import {
     Button,
     FormControl,
     FormHelperText,
-    Grid,
+    Grid, Skeleton, Stack,
     TextField,
 } from "@mui/material";
 import WeatherCard from "./WeatherCard";
@@ -16,6 +16,7 @@ import { motion } from 'framer-motion';
 import "../App.css"; // Assuming your CSS file is named styles.css
 import  "../globals.css"
 import  BrChart from "../BarChart/BrChart";
+import Notepad from "../Notepad/Notepad.jsx";
 const WeatherDashboard = () => {
     const [cityName, setCityName] = useState("");
 
@@ -25,6 +26,7 @@ const WeatherDashboard = () => {
 
     const handleForm = (event) => {
         event.preventDefault();
+
     };
 
     return (
@@ -57,36 +59,66 @@ const WeatherDashboard = () => {
             </Box>
             <Grid container spacing={3} justifyContent="center">
                 <Grid item xs={12} sm={6} md={4} lg={3}>
+                    {!cityName ? (<Stack spacing={1}>
+
+                        <Skeleton variant="text" sx={{ fontSize: '5rem' }} />
+
+                        <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+                        <Skeleton />
+                        <Skeleton animation="wave" />
+                        <Skeleton animation={false} />
+                    </Stack>) : (<WeatherCard
+                        title="Current Temp"
+                        value={<Comp1 cityName={cityName} />}
+                        cityName={cityName}
+                    />)}
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} lg={3}>
+                    {!cityName ? (<Stack spacing={1}>
+
+                            <Skeleton variant="text" sx={{ fontSize: '5rem' }} />
+                        <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+                        <Skeleton />
+                        <Skeleton animation="wave" />
+                        <Skeleton animation={false} />
+                         </Stack>): (
                     <WeatherCard
                         title="Avg Temp of Week"
                         value={<AvgTemp cityName={cityName} />}
                         cityName={cityName}
-                    />
+                    />)}
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <WeatherCard
+                    {!cityName ? (<Stack spacing={1}>
+
+                        <Skeleton variant="text" sx={{ fontSize: '5rem' }} />
+
+                        <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+                        <Skeleton />
+                        <Skeleton animation="wave" />
+                        <Skeleton animation={false} /> </Stack>):( <WeatherCard
                         title="Avg Rainfall of Week"
                         value={<AvgRainfall cityName={cityName} />}
                         cityName={cityName}
-                    />
+                    />)}
                 </Grid>
                 <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <WeatherCard
+                    {!cityName ? (<Stack spacing={1}>
+
+                        <Skeleton variant="text" sx={{ fontSize: '5rem' }} />
+
+                        <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+                        <Skeleton />
+                        <Skeleton animation="wave" />
+                        <Skeleton animation={false} /> </Stack>):(<WeatherCard
                         title="Avg Humidity of Week"
                         value={<AvgHumidity cityName={cityName} />}
                         cityName={cityName}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6} md={4} lg={3}>
-                    <WeatherCard
-                        title="Current Temp"
-                        value={<Comp1 cityName={cityName} />}
-                        cityName={cityName}
-                    />
+                    />)}
+
                 </Grid>
             </Grid>
-            <Box><BrChart cityName={cityName}></BrChart></Box>
         </Box>
         </motion.div>
     );

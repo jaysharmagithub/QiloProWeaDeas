@@ -31,8 +31,8 @@ const CustomThemeProvider = ({ children }) => {
               }
             : {
                 background: {
-                  default: "#121212",
-                  paper: "#FF033E",
+                  default: "#000",
+                  paper: "rgba(124,124,124,0.11)",
                 },
                 text: {
                   primary: "#fff",

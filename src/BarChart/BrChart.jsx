@@ -1,12 +1,9 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {getLatiAndLongi, getTemperatureValues} from "../Util/Apifunction.jsx";
-import {Box, Checkbox, FormControlLabel, Slider, Typography} from "@mui/material";
+import {Box, Checkbox, FormControlLabel, Skeleton, Slider, Stack, Typography} from "@mui/material";
 import {BarChart} from "@mui/x-charts";
 
 
-let dailyAvgTemp = [];
-let temp_2m_min = [];
-let temp_2m_max = [];
 
 export default function BarAnimation(cityName) {
     const [seriesNb, setSeriesNb] = useState(1);
@@ -54,18 +51,48 @@ export default function BarAnimation(cityName) {
                 setDailyAvgTemp(avgTemp);
 
                 console.log("1",dailyAvgTemp);
-
+                console.log("2",temp2mMin);
+                console.log("3",temp2mMax);
             } catch (error) {
                 throw new Error(error);
             }
         };
         getAvgTemp();
-    }, [cityName]);
+    }, [cityName, dailyAvgTemp, temp2mMax, temp2mMin]);
 
-    return (
-        <Box sx={{ width: '100%' }}>
+    const highlightScope = {
+        highlighted: 'series',
+        faded: 'global',
+    };
+
+    const series = [
+        {
+            label: 'Daily average temperature',
+            data: dailyAvgTemp,
+        },
+        {
+            label: 'Temperature 2m Maximum',
+            data: temp2mMax,
+        },
+        {
+            label: 'Temperature 2m Minimum',
+            data: temp2mMin,
+        },
+    ].map((s) => ({ ...s, highlightScope }));
+
+
+    return <div>
+        {!dailyAvgTemp  ? (<Stack spacing={1}>
+
+            <Skeleton variant="text" sx={{ fontSize: '5rem' }} />
+
+            <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+            <Skeleton />
+            <Skeleton animation="wave" />
+            <Skeleton animation={false} />
+        </Stack>) : (<Box sx={{ width: '100%' , padding: "5rem 10rem 5rem 10rem"}}>
             <BarChart
-                height={300}
+                height={500}
                 series={series
                     .slice(0, seriesNb)
                     .map((s) => ({ ...s, data: s.data.slice(0, itemNb) }))}
@@ -80,7 +107,7 @@ export default function BarAnimation(cityName) {
                 labelPlacement="end"
             />
             <Typography id="input-item-number" gutterBottom>
-                Number of items
+                Number of bars
             </Typography>
             <Slider
                 value={itemNb}
@@ -91,7 +118,7 @@ export default function BarAnimation(cityName) {
                 aria-labelledby="input-item-number"
             />
             <Typography id="input-series-number" gutterBottom>
-                Number of series
+                Number of dependent variables
             </Typography>
             <Slider
                 value={seriesNb}
@@ -101,29 +128,7 @@ export default function BarAnimation(cityName) {
                 max={3}
                 aria-labelledby="input-series-number"
             />
-        </Box>
-    );
+        </Box>)}
+    </div>;
 }
 
-const highlightScope = {
-    highlighted: 'series',
-    faded: 'global',
-};
-
-const series = [
-    {
-        label: 'series 1',
-        data: dailyAvgTemp,
-    },
-    {
-        label: 'series 2',
-        data: [
-            temp_2m_max,
-        ],
-    },
-    {
-        label: 'series 3',
-        data: [
-            temp_2m_min]
-    },
-].map((s) => ({ ...s, highlightScope }));

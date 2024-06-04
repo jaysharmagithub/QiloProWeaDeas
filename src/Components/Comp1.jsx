@@ -1,6 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { getCurrentTemp, getLatiAndLongi } from "../Util/Apifunction";
+import {dark} from "@mui/material/styles/createPalette.js";
+import {color} from "framer-motion";
 
 const Comp1 = ({ cityName }) => {
   const [temperature, setTemperature] = useState("");
@@ -29,7 +31,7 @@ const Comp1 = ({ cityName }) => {
     getTemperature();
   }, [cityName]);
 
-  return <>{temperature ? (`${Math.round(temperature)} °C`) :(<p>Loading</p>)}</>
+  return <>{temperature ? (<p>{Math.round(temperature)} °C <br/> <span style={{fontWeight:"100", paddingTop:10}}>{descrp}</span></p> ) :(<p>Loading</p>)}</>
 };
 
 export default Comp1;

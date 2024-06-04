@@ -7,7 +7,7 @@ import {
     Button,
     Fab,
     Fade,
-    IconButton,
+    IconButton, Link,
     Menu,
     MenuItem,
     Toolbar,
@@ -23,7 +23,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import BrChart from "./BarChart/BrChart.jsx"
-const pages = ['Home', 'BarChart', 'Notepad'];
+import Notepad from "./Notepad/Notepad.jsx";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+
+
 
 function ScrollTop(props) {
     const { children,window } = props;
@@ -113,11 +116,9 @@ function App(props) {
                     display: { xs: 'block', md: 'none' },
                   }}
               >
-                {pages.map((page) => (
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                      <Typography textAlign="center">{page}</Typography>
-                    </MenuItem>
-                ))}
+                <MenuItem><Link href="/weatherdashboard" >Home</Link></MenuItem>
+                <MenuItem><Link href="/barchart">Barchart</Link></MenuItem>
+                <MenuItem><Link href="/notepad">Notepad</Link></MenuItem>
               </Menu>
             </Box>
             <AdbIcon sx={{ display: { xs: 'flex', md: 'flex' }, mr: 1 }} />
@@ -125,7 +126,7 @@ function App(props) {
                 variant="h5"
                 noWrap
                 component="a"
-                href="#app-bar-with-responsive-menu"
+                href="/"
                 sx={{
                   mr: 2,
                   display: { xs: 'flex', md: 'flex' },
@@ -140,22 +141,22 @@ function App(props) {
               Weather DashBoard
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map((page) => (
-                  <Button
-                      key={page}
-                      onClick={handleCloseNavMenu}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                  >
-                    {page}
-                  </Button>
-              ))}
+              <Button href="/weatherdashboard">Home</Button>
+              <Button href="/barchart">BarChart</Button>
+              <Button href="/notepad">Notepad</Button>
             </Box>
             <ThemeSwitcher />
           </Toolbar>
         </AppBar>
           <Toolbar id="back-to-top-anchor" />
-        <WeatherDashboard />
+            <BrowserRouter>
+                <Routes>
 
+                        <Route path={"/weatherdashboard"} element={<WeatherDashboard/>} />
+                        <Route path={"/barchart"} element={<BrChart/>} />
+                        <Route path={"/notepad"} element={<Notepad/>} />
+                </Routes>
+            </BrowserRouter>
           <ScrollTop {...props}>
               <Fab size="small" aria-label="scroll back to top">
                   <KeyboardArrowUpIcon />
