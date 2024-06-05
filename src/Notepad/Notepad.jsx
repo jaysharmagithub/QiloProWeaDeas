@@ -42,7 +42,8 @@ const Notepad = () => {
       console.log("the array's been emptied");
       return;
     }
-    setListElement(listElement.slice(0, -1)); // Remove the last element
+    listElement.shift();
+    setListElement(listElement); // Remove the last element
   };
 
   return (

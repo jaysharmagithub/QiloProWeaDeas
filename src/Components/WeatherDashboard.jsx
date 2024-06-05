@@ -17,15 +17,39 @@ import "../App.css"; // Assuming your CSS file is named styles.css
 import  "../globals.css"
 import  BrChart from "../BarChart/BrChart";
 import Notepad from "../Notepad/Notepad.jsx";
+import {getCurrentTemp, getLatiAndLongi} from "../Util/Apifunction.jsx";
+
 const WeatherDashboard = () => {
     const [cityName, setCityName] = useState("");
+    const [errormessage, setErrorMessage]=useState("");
+    const [submit, setSubmit]=useState(false);
 
     const handleInputChange = (event) => {
         setCityName(event.target.value);
+        setSubmit(false);
     };
 
-    const handleForm = (event) => {
+    const handleForm = async (event) => {
         event.preventDefault();
+        if(!cityName){
+            console.log("city must be entered")
+        }
+        setCityName(cityName.toLowerCase().trim());
+
+        try {
+            const latiAndlangi = await getLatiAndLongi(cityName);
+
+            const lati = latiAndlangi.data[0].lat;
+            const longi = latiAndlangi.data[0].lon;
+
+            const response = await getCurrentTemp(lati, longi);
+
+
+        } catch (error) {
+            setErrorMessage(error.message);
+        }
+        setSubmit(true);
+
 
     };
 
@@ -36,8 +60,10 @@ const WeatherDashboard = () => {
             transition={{ duration: 0.5 }}
             className="dashboard-container"
         >
+            {errormessage && console.log(errormessage)}
         <Box sx={{ flexGrow: 1, padding: '2rem' }}>
             <Box sx={{ width: '100%', maxWidth: { lg: '33%', xs: '100%' }, margin: 'auto', marginBottom: '2rem' }}>
+
                 <form onSubmit={handleForm}>
                     <FormControl fullWidth>
                         <TextField
@@ -67,8 +93,8 @@ const WeatherDashboard = () => {
                         <Skeleton />
                         <Skeleton animation="wave" />
                         <Skeleton animation={false} />
-                    </Stack>) : (<WeatherCard
-                        title="Current Temp"
+                    </Stack>) : (submit &&  <WeatherCard
+                        title="Current Temperature"
                         value={<Comp1 cityName={cityName} />}
                         cityName={cityName}
                     />)}
@@ -81,8 +107,7 @@ const WeatherDashboard = () => {
                         <Skeleton />
                         <Skeleton animation="wave" />
                         <Skeleton animation={false} />
-                         </Stack>): (
-                    <WeatherCard
+                         </Stack>): ( submit &&  <WeatherCard
                         title="Avg Temp of Week"
                         value={<AvgTemp cityName={cityName} />}
                         cityName={cityName}
@@ -97,7 +122,7 @@ const WeatherDashboard = () => {
                         <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
                         <Skeleton />
                         <Skeleton animation="wave" />
-                        <Skeleton animation={false} /> </Stack>):( <WeatherCard
+                        <Skeleton animation={false} /> </Stack>):(submit && <WeatherCard
                         title="Avg Rainfall of Week"
                         value={<AvgRainfall cityName={cityName} />}
                         cityName={cityName}
@@ -111,7 +136,7 @@ const WeatherDashboard = () => {
                         <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
                         <Skeleton />
                         <Skeleton animation="wave" />
-                        <Skeleton animation={false} /> </Stack>):(<WeatherCard
+                        <Skeleton animation={false} /> </Stack>):(submit && <WeatherCard
                         title="Avg Humidity of Week"
                         value={<AvgHumidity cityName={cityName} />}
                         cityName={cityName}

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const AvgRainfall = ({ cityName }) => {
   const [avgRainfall, setAvgRainfall] = useState("");
-
+  const [errorMessage, setErrorMessage] = useState("");
   useEffect(() => {
     const getAvgRainfall = async () => {
       try {
@@ -62,12 +62,12 @@ const AvgRainfall = ({ cityName }) => {
         avgt / 7;
         setAvgRainfall(avgt);
       } catch (error) {
-        throw new Error(error);
+        setErrorMessage(error.message);
       }
     };
     getAvgRainfall();
   }, [cityName]);
 
-  return <div>{avgRainfall!==0 && avgRainfall<=0 ?  (<p>Loading...</p>):(avgRainfall>=0 && (`${Math.round(avgRainfall)} mm`))}</div>;
+  return <div>{errorMessage ? (<p>{errorMessage}</p>):(avgRainfall!==0 && avgRainfall<=0 ?  (<p>Loading...</p>):(avgRainfall>=0 && (`${Math.round(avgRainfall)} mm`)))}</div>;
 };
 export default AvgRainfall;

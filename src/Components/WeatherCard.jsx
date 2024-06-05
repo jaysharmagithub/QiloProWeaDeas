@@ -34,6 +34,7 @@ const ExpandMore = styled((props) => {
 
 const WeatherCard = ({title, value, cityName}) => {
     const theme = useTheme();
+    const [date, setDate] = useDate
 
     const [expanded, setExpanded] = React.useState(false);
 
@@ -60,7 +61,7 @@ const WeatherCard = ({title, value, cityName}) => {
                     justifyContent: "center",
                     padding: "20px"
                 }} variant="outlined">
-                <CardHeader
+                <CardHeader style={{display:"flex", justifyContent: "space-between"}}
                     avatar={
                         <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
                             <TodayIcon></TodayIcon>
@@ -74,8 +75,8 @@ const WeatherCard = ({title, value, cityName}) => {
                     title={cityName}
 
                     subheader={`${new Date().getFullYear()}-${
-                          new Date().getMonth()
-                    }-${new Date().getDate()}`}
+                        "0" + new Date().getMonth()
+                    }-${"0"+new Date().getDate()}`}
 
 
                 /><CardMedia

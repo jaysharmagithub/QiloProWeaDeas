@@ -128,6 +128,7 @@ export default function BarAnimation(cityName) {
                 max={3}
                 aria-labelledby="input-series-number"
             />
+
         </Box>)}
     </div>;
 }

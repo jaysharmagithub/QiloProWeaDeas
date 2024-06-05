@@ -7,6 +7,7 @@ import {
 
 const  AvgHumidity = ({ cityName }) => {
   const [avgHumidity, setAvgHumidity] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const getAvgRainfall = async () => {
@@ -65,13 +66,13 @@ const  AvgHumidity = ({ cityName }) => {
         avgt = avgt / 7;
         setAvgHumidity(avgt);
       } catch (error) {
-        throw new Error(error);
+       setErrorMessage(error.message);
       }
     };
     getAvgRainfall();
   }, [cityName]);
 
-  return <div>{avgHumidity ? (`${Math.round(avgHumidity)} %`):(<p>Loading...</p>)}</div>;
+  return <div>{errorMessage ? (<p>{errorMessage}</p>):(avgHumidity ? (`${Math.round(avgHumidity)} %`):(<p>Loading...</p>))}</div>;
 };
 
 export default AvgHumidity;

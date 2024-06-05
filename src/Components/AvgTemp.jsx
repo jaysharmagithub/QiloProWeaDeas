@@ -3,6 +3,7 @@ import { getLatiAndLongi, getTemperatureValues } from "../Util/Apifunction";
 
 const AvgTemp = ({ cityName }) => {
   const [avgtemp, setAvgTemp] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const getAvgTemp = async () => {
@@ -28,13 +29,13 @@ const AvgTemp = ({ cityName }) => {
         avgt /= 14;
         setAvgTemp(avgt);
       } catch (error) {
-        throw new Error(error);
+        setErrorMessage(error.message);
       }
     };
     getAvgTemp();
   }, [cityName]);
 
-  return <div> {avgtemp ? (`${Math.round(avgtemp)}°C`):(<p>Loading...</p>)}</div>;
+  return <div> {errorMessage ? (<p>{errorMessage}</p>):(avgtemp ? (`${Math.round(avgtemp)}°C`):(<p>Loading...</p>))}</div>;
 };
 
 export default AvgTemp;

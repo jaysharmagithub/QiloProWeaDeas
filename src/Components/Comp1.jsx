@@ -7,6 +7,7 @@ import {color} from "framer-motion";
 const Comp1 = ({ cityName }) => {
   const [temperature, setTemperature] = useState("");
    const [descrp, setDescrp] = useState("");
+   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const getTemperature = async () => {
@@ -25,13 +26,13 @@ const Comp1 = ({ cityName }) => {
         setTemperature(response.data.main.temp);
         setDescrp(response.data.weather[0].description)
       } catch (error) {
-        console.error(error.message);
+        setErrorMessage(error.message)
       }
     };
     getTemperature();
   }, [cityName]);
 
-  return <>{temperature ? (<p>{Math.round(temperature)} °C <br/> <span style={{fontWeight:"100", paddingTop:10}}>{descrp}</span></p> ) :(<p>Loading</p>)}</>
+  return <>{errorMessage ? (<p style={{margin:"auto"}}>{errorMessage}</p>):(temperature ? (<p>{Math.round(temperature)} °C <br/> <span style={{fontWeight:"100", paddingTop:10}}>{descrp}</span></p> ) :(<p>Loading</p>))}</>
 };
 
 export default Comp1;
