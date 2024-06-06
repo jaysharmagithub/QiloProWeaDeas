@@ -83,7 +83,7 @@ const WeatherDashboard = () => {
                     </FormControl>
                 </form>
             </Box>
-            <Grid container spacing={3} justifyContent="center">
+            <Grid container spacing={3} justifyContent="center" alignItems="stretch">
                 <Grid item xs={12} sm={6} md={4} lg={3}>
                     {!cityName ? (<Stack spacing={1}>
 

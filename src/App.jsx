@@ -126,7 +126,7 @@ function App(props) {
                 variant="h5"
                 noWrap
                 component="a"
-                href="/"
+                href="/weatherdashboard"
                 sx={{
                   mr: 2,
                   display: { xs: 'flex', md: 'flex' },

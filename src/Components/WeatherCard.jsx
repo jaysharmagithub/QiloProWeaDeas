@@ -10,7 +10,7 @@ import {
     useTheme
 } from "@mui/material";
 import {color, motion} from "framer-motion";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {red} from "@mui/material/colors";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
@@ -20,6 +20,7 @@ import ImageComponent from "./ImageComponent.jsx";
 import  Rain from "../assets/Rain.png"
 import "../App.css";
 import TodayIcon from '@mui/icons-material/Today';
+
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -34,8 +35,24 @@ const ExpandMore = styled((props) => {
 
 const WeatherCard = ({title, value, cityName}) => {
     const theme = useTheme();
-    const [date, setDate] = useDate
+    const [date, setDate]=useState({
+        day: new Date().getDate(),
+        month: new Date().getMonth(),
+        year: new Date().getFullYear()
+    })
 
+    useEffect(()=> {
+        const currentDate = date.day + 1;
+        if(currentDate === 30 || currentDate === 31) { const currentMonth =date.month+1;
+            if(currentMonth === 12) {const currentYear = date.year+1;
+                setDate({...date, day:[currentDate], month: [currentMonth], year:[currentYear]});}
+
+        }
+
+
+
+
+    },[date]);
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -50,18 +67,23 @@ const WeatherCard = ({title, value, cityName}) => {
 
 
             style={{margin: "10px", flexGrow: 1}}>
+
             <Card className="card-shadow"
                 sx={{
                     minWidth: 275,
+                    minHeight: cityName ? '650px' : 'auto',
                     backgroundColor: theme.palette.background.paper,
                     color: theme.palette.text.primary,
                     display: "flex",
                     flexDirection: "column",
-                    alignItems: "center",
+                    alignItems: "stretch",
                     justifyContent: "center",
-                    padding: "20px"
+                    paddingTop: 0,
+                    padding:"5px",
                 }} variant="outlined">
-                <CardHeader style={{display:"flex", justifyContent: "space-between"}}
+                {<h2 style={{textAlign:"center", margin:"auto", padding:0}}>{title}</h2>}
+                <CardHeader style={{display:"flex", justifyContent: "space-between", alignItems: "center",paddingTop:0 }}
+
                     avatar={
                         <Avatar sx={{bgcolor: red[500]}} aria-label="recipe">
                             <TodayIcon></TodayIcon>
@@ -72,11 +94,13 @@ const WeatherCard = ({title, value, cityName}) => {
                             <MoreVertIcon />
                         </IconButton>
                     }
-                    title={cityName}
+                            title={<p style={{fontSize:"30px", }}>{cityName}</p>}
 
-                    subheader={`${new Date().getFullYear()}-${
-                        "0" + new Date().getMonth()
-                    }-${"0"+new Date().getDate()}`}
+                            subheader={<p>
+                            {/*    `${new Date().getFullYear()}-${*/}
+                            {/*    "0" + new Date().getMonth()*/}
+                            {/*}-${"0"+new Date().getDate()}`*/} {"0"+date.day+" /"+"0"+date.month+" /"+date.year}
+                            </p>}
 
 
                 /><CardMedia
