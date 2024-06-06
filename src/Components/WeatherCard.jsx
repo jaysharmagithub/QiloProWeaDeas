@@ -35,6 +35,7 @@ const ExpandMore = styled((props) => {
 
 const WeatherCard = ({title, value, cityName}) => {
     const theme = useTheme();
+    const [like,setLike]=useState(1);
     const [date, setDate]=useState({
         day: new Date().getDate(),
         month: new Date().getMonth(),
@@ -59,6 +60,14 @@ const WeatherCard = ({title, value, cityName}) => {
         setExpanded(!expanded);
     };
 
+    const handleFavourite = () => {
+        setLike(like+1);
+    }
+
+    const handleShare = () => {
+
+    }
+
     const imageUrl = ImageComponent({ cityName });
     return (
         <motion.div initial={{ opacity: 0, y: 20 }}
@@ -80,8 +89,9 @@ const WeatherCard = ({title, value, cityName}) => {
                     justifyContent: "center",
                     paddingTop: 0,
                     padding:"5px",
+                    alignContent:"center"
                 }} variant="outlined">
-                {<h2 style={{textAlign:"center", margin:"auto", padding:0}}>{title}</h2>}
+                {<h2 style={{textAlign:"center", margin:"5px", padding:0}}>{title}</h2>}
                 <CardHeader style={{display:"flex", justifyContent: "space-between", alignItems: "center",paddingTop:0 }}
 
                     avatar={
@@ -114,10 +124,10 @@ const WeatherCard = ({title, value, cityName}) => {
                     <Typography variant="h5" color="text.secondary">{value}</Typography>
                 </CardContent>
                 <CardActions disableSpacing justifyContent="space-betweeen">
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
+                    <IconButton aria-label="add to favorites" onClick={handleFavourite}>
+                        <FavoriteIcon />  {like}
                     </IconButton>
-                    <IconButton aria-label="share">
+                    <IconButton aria-label="share" onClick={handleShare}>
                         <ShareIcon />
                     </IconButton>
                     <ExpandMore
