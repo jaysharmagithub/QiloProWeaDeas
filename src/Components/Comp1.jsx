@@ -32,7 +32,11 @@ const Comp1 = ({ cityName }) => {
     getTemperature();
   }, [cityName]);
 
-  return <>{errorMessage ? (<p style={{margin:"auto"}}>{errorMessage}</p>):(temperature ? (<p>{Math.round(temperature)} °C <br/> <span style={{fontWeight:"25px", paddingTop:10, textAlign:"center"}}>{descrp}</span></p> ) :(<p>Loading</p>))}</>
+  return <>{errorMessage ? (<p style={{margin:"auto"}}>{errorMessage}</p>)
+      :(temperature ?
+          (<p>{Math.round(temperature)} °C <br/>
+            <span style={{fontWeight:"25px", paddingTop:10, textAlign:"center"}}>{descrp}</span></p> )
+          :(<p>Loading</p>))}</>
 };
 
 export default Comp1;

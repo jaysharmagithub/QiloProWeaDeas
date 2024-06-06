@@ -82,7 +82,7 @@ export default function BarAnimation(cityName) {
 
 
     return <div>
-        {!dailyAvgTemp  ? (<Stack spacing={1}>
+        {!cityName  ? (<Stack spacing={1}>
 
             <Skeleton variant="text" sx={{ fontSize: '5rem' }} />
 

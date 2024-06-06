@@ -17,6 +17,7 @@ import List from '@mui/material/List';
 const Notepad = () => {
   const [listElement, setListElement] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [alert, setAlert] = useState("");
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -30,25 +31,28 @@ const Notepad = () => {
 
   const addElement = () => {
     if(!inputValue ){
-      console.log("text must be entered");
+      setAlert("text must be entered");
       return;
     }
     setListElement([...listElement, inputValue]);
     setInputValue(""); // Clear the input after adding an element
+    setAlert("");
   };
 
   const deleteElement = () => {
     if(listElement.length===0){
-      console.log("the array's been emptied");
+      setAlert("the array's been emptied");
       return;
     }
     listElement.shift();
     setListElement(listElement); // Remove the last element
+    setAlert("");
   };
 
   return (
       <Box sx={{ width: '100%', maxWidth: { lg: '33%', xs: '100%' }, margin: 'auto', marginBottom: '0rem' }}>
         <form onSubmit={handleFormSubmit}>
+          {alert && <p>{alert}</p>}
           <FormControl fullWidth>
             <TextField
                 size="medium"

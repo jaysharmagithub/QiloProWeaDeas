@@ -34,7 +34,7 @@ const WeatherDashboard = () => {
         if(!cityName){
             console.log("city must be entered")
         }
-        setCityName(cityName.toLowerCase().trim());
+        cityName.trim().toLowerCase();
 
         try {
             const latiAndlangi = await getLatiAndLongi(cityName);

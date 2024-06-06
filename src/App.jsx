@@ -116,7 +116,7 @@ function App(props) {
                     display: { xs: 'block', md: 'none' },
                   }}
               >
-                <MenuItem><Link href="/weatherdashboard" >Home</Link></MenuItem>
+                <MenuItem><Link href="/" >Home</Link></MenuItem>
                 <MenuItem><Link href="/barchart">Barchart</Link></MenuItem>
                 <MenuItem><Link href="/notepad">Notepad</Link></MenuItem>
               </Menu>
@@ -126,7 +126,7 @@ function App(props) {
                 variant="h5"
                 noWrap
                 component="a"
-                href="/weatherdashboard"
+                href="/"
                 sx={{
                   mr: 2,
                   display: { xs: 'flex', md: 'flex' },
@@ -141,7 +141,7 @@ function App(props) {
               Weather DashBoard
             </Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button href="/weatherdashboard">Home</Button>
+              <Button href="/">Home</Button>
               <Button href="/barchart">BarChart</Button>
               <Button href="/notepad">Notepad</Button>
             </Box>
@@ -152,7 +152,7 @@ function App(props) {
             <BrowserRouter>
                 <Routes>
 
-                        <Route path={"/weatherdashboard"} element={<WeatherDashboard/>} />
+                        <Route path={"/"} element={<WeatherDashboard/>} />
                         <Route path={"/barchart"} element={<BrChart/>} />
                         <Route path={"/notepad"} element={<Notepad/>} />
                 </Routes>

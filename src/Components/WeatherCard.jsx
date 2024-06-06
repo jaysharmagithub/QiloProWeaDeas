@@ -90,11 +90,11 @@ const WeatherCard = ({title, value, cityName}) => {
                         </Avatar>
                     }
                     action={
-                        <IconButton aria-label="settings">
+                        <IconButton sx={{marginTop:"25px"}} aria-label="settings">
                             <MoreVertIcon />
                         </IconButton>
                     }
-                            title={<p style={{fontSize:"30px", }}>{cityName}</p>}
+                            title={<p style={{fontSize:"30px", margin:0}}>{cityName}</p>}
 
                             subheader={<p>
                             {/*    `${new Date().getFullYear()}-${*/}
@@ -131,7 +131,7 @@ const WeatherCard = ({title, value, cityName}) => {
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-
+                        {title}
                     </CardContent>
                 </Collapse>
             </Card>
