@@ -3,6 +3,8 @@ import AvgTemp from "./AvgTemp";
 import AvgRainfall from "./AvgRainfall";
 import AvgHumidity from "./AvgHumidity";
 import Comp1 from "./Comp1";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 import {
     Box,
     Button,

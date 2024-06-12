@@ -7,7 +7,7 @@ import {BarChart} from "@mui/x-charts";
 
 export default function BarAnimation(cityName) {
     const [seriesNb, setSeriesNb] = useState(1);
-    const [itemNb, setItemNb] = useState(5);
+    const [itemNb, setItemNb] = useState(7);
     const [skipAnimation, setSkipAnimation] = useState(false);
     const [dailyAvgTemp, setDailyAvgTemp] = useState([]);
     const [temp2mMax, setTemp2mMax] = useState([]);

@@ -1,11 +1,11 @@
 import {
-    Avatar,
+    Avatar, Box,
     Card,
     CardActions,
     CardContent,
     CardHeader, CardMedia,
     Collapse,
-    IconButton, styled,
+    IconButton, Skeleton, styled,
     Typography,
     useTheme
 } from "@mui/material";
@@ -107,18 +107,19 @@ const WeatherCard = ({title, value, cityName}) => {
                             title={<p style={{fontSize:"30px", margin:0}}>{cityName}</p>}
 
                             subheader={<p>
-                            {/*    `${new Date().getFullYear()}-${*/}
-                            {/*    "0" + new Date().getMonth()*/}
-                            {/*}-${"0"+new Date().getDate()}`*/} {"0"+date.day+" /"+"0"+date.month+" /"+date.year}
+                            {(date.day > 9 ? ( date.day):("0"+date.day ))+" /"+(date.month > 9 ? ( date.month):("0"+date.month ))+" /"+date.year}
                             </p>}
 
 
-                /><CardMedia
+                />{imageUrl ? <CardMedia
                 component="img"
                 height="170"
                 image={imageUrl ? (imageUrl):(<p>Loading</p>)}
                 alt="Weather" style={{ maxWidth: '100%', height: 'auto' }}
-            />
+            /> : <Box sx={{ width: 300 }}>
+
+                <Skeleton sx={{ height: 190 }} animation="wave" variant="rectangular" />
+            </Box>}
                 <CardContent>
 
                     <Typography variant="h5" color="text.secondary">{value}</Typography>

@@ -32,6 +32,7 @@ const Notepad = () => {
   const addElement = () => {
     if(!inputValue ){
       setAlert("text must be entered");
+      setListElement(inputValue)
       return;
     }
     setListElement([...listElement, inputValue]);
@@ -40,10 +41,11 @@ const Notepad = () => {
   };
 
   const deleteElement = () => {
-    if(listElement.length===0){
+    if(!listElement.length){
       setAlert("the array's been emptied");
       return;
     }
+    console.log(listElement.length)
     listElement.shift();
     setListElement(listElement); // Remove the last element
     setAlert("");
@@ -52,6 +54,7 @@ const Notepad = () => {
   return (
       <Box sx={{ width: '100%', maxWidth: { lg: '33%', xs: '100%' }, margin: 'auto', marginBottom: '0rem' }}>
         <form onSubmit={handleFormSubmit}>
+          {<p>{listElement.length}</p>}
           {alert && <p>{alert}</p>}
           <FormControl fullWidth>
             <TextField

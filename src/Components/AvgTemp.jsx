@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getLatiAndLongi, getTemperatureValues } from "../Util/Apifunction";
+import {Box, Skeleton} from "@mui/material";
 
 const AvgTemp = ({ cityName }) => {
   const [avgtemp, setAvgTemp] = useState("");
@@ -35,7 +36,13 @@ const AvgTemp = ({ cityName }) => {
     getAvgTemp();
   }, [cityName]);
 
-  return <div> {errorMessage ? (<p>{errorMessage}</p>):(avgtemp ? (`${Math.round(avgtemp)}°C`):(<p>Loading...</p>))}</div>;
+  return <div> {errorMessage ? (<p>{errorMessage}</p>):(avgtemp ? (`${Math.round(avgtemp)}°C`):(
+      <Box sx={{ width: 300 }}>
+
+        <Skeleton animation="wave" />
+        <Skeleton animation={false} />
+      </Box>
+))}</div>;
 };
 
 export default AvgTemp;

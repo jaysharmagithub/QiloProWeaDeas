@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getCurrentTemp, getLatiAndLongi } from "../Util/Apifunction";
 import {dark} from "@mui/material/styles/createPalette.js";
 import {color} from "framer-motion";
+import {Box, Skeleton} from "@mui/material";
 
 const Comp1 = ({ cityName }) => {
   const [temperature, setTemperature] = useState("");
@@ -36,7 +37,11 @@ const Comp1 = ({ cityName }) => {
       :(temperature ?
           (<p>{Math.round(temperature)} °C <br/>
             <span style={{fontWeight:"25px", paddingTop:10, textAlign:"center"}}>{descrp}</span></p> )
-          :(<p>Loading</p>))}</>
+          :(<Box sx={{ width: 300 }}>
+
+            <Skeleton animation="wave" />
+            <Skeleton animation={false} />
+          </Box>))}</>
 };
 
 export default Comp1;
